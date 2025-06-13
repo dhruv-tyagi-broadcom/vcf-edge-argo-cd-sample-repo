@@ -1,55 +1,39 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: myapp
-# spec:
-#   selector:
-#     matchLabels:
-#       app: myapp
-#   replicas: 2
-#   template:
-#     metadata:
-#       labels:
-#         app: myapp
-#     spec:
-#       containers:
-#       - name: myapp
-#         image: nanajanashia/argocd-app:1.2
-#         ports:
-#         - containerPort: 8080
-# Sample CV App which runs in a browser and uses your local computer camera
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-app
+  name: mapdeployment
   namespace: argocd
+  labels:
+    app: mapdeployment
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: sample-app
-  replicas: 1
+      app: mapdeployment
   template:
     metadata:
-      name: sample-app
       labels:
-        app: sample-app
+        app: mapdeployment
     spec:
       containers:
-      - name: nginx
-        image: docker.io/alanrenouf/sampleveco:1.0
+      - name: mapdeployment
+      #toggle image between combat01 and fire01 when demonstrating to show initial and end state
+        image: indhruvtyagi/demo-map:fire01
+        imagePullPolicy: Always
         ports:
-        - containerPort: 80
+        - containerPort: 8000
+      imagePullSecrets:
+      - name: dockerhub-creds
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: sample-app
+  name: lb-mapdeployment
   namespace: argocd
 spec:
   type: LoadBalancer
   selector:
-    app: sample-app
+    app: mapdeployment
   ports:
-    - port: 80
-      nodePort: 30888
+    - port: 8081
+      nodePort: 8000
