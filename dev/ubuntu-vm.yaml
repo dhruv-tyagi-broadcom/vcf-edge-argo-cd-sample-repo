@@ -1,0 +1,31 @@
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachine
+metadata:
+  name: vcf-edge-sample-ubuntu-vm
+  namespace: argocd
+  labels:
+    vm-selector: vcf-edge-sample-ubuntu-vm
+spec:
+  className: best-effort-small
+  imageName: vmi-09ce7348154dd6e3a
+  storageClass: wld01-cluster-01-vsan-storage-policy
+  powerState: poweredOn
+  volumes:
+    - name: vcf-edge-sample-ubuntu-vm-pvc-0
+      persistentVolumeClaim:
+        claimName: vcf-edge-sample-ubuntu-vm-pvc-0
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vcf-edge-sample-ubuntu-vm-pvc-0
+  namespace: argocd
+  labels:
+    vm-selector: vcf-edge-sample-ubuntu-vm
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: wld01-cluster-01-vsan-storage-policy
