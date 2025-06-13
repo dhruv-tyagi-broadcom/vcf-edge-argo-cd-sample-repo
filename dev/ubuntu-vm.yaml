@@ -7,7 +7,7 @@ metadata:
     vm-selector: vcf-edge-sample-ubuntu-vm
 spec:
   className: best-effort-small
-  imageName: vmi-09ce7348154dd6e3a
+  imageName: vmi-d2f0a10518381e0a0
   storageClass: wld01-cluster-01-vsan-storage-policy
   powerState: poweredOn
   volumes:
