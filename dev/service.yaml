@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     app: myapp
-  type: ClusterIP
+  type: LoadBalancer
   ports:
   - port: 8080
     protocol: TCP
