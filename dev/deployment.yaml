@@ -35,5 +35,6 @@ spec:
   selector:
     app: mapdeployment
   ports:
-    - port: 8081
-      nodePort: 8000
+  - protocol: TCP
+    port: 8081
+    targetPort: 8000
