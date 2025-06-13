@@ -1,30 +1,32 @@
-#example deployment and post customsiation for Photon VM
 apiVersion: vmoperator.vmware.com/v1alpha1
 kind: VirtualMachine
 metadata:
-  name: photon-vm
+  name: vcf-edge-sample-vm
   namespace: argocd
-  annotations:
-    vmoperator.vmware.com/image-supported-check: disable
+  labels:
+    vm-selector: vcf-edge-sample-vm
 spec:
-  className: guaranteed-small
-  imageName: packages.vmware.com/photon/4.0/GA/ova/photon-hw11-4.0-1526e30ba0.ova
+  className: best-effort-xsmall
+  imageName: vmi-09ce7348154dd6e3a
+  storageClass: wld01-cluster-01-vsan-storage-policy
   powerState: poweredOn
-  networkInterfaces:
-  - networkName: "VM Network"
-    ethernetCardType: "vmxnet3"
+  volumes:
+    - name: vcf-edge-sample-vm-pvc-0
+      persistentVolumeClaim:
+        claimName: vcf-edge-sample-vm-pvc-0
   vmMetadata:
-    configMapName: user-data-photon
+    secretName: vcf-edge-sample-vm-bootstrap-secret
     transport: CloudInit
 ---
 apiVersion: v1
-kind: ConfigMap
+kind: Secret
 metadata:
-    name: user-data-photon
-    namespace: argocd
-data:
+  name: vcf-edge-sample-vm-bootstrap-secret
+  namespace: argocd
+  labels:
+    vm-selector: vcf-edge-sample-vm
+stringData:
   user-data: |
-    #cloud-config
     ssh_pwauth: true
     users:
       - name: root
@@ -36,3 +38,18 @@ data:
       - content: |
           VCF Edge says Hello World
         path: /helloworld
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vcf-edge-sample-vm-pvc-0
+  namespace: argocd
+  labels:
+    vm-selector: vcf-edge-sample-vm
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: wld01-cluster-01-vsan-storage-policy
