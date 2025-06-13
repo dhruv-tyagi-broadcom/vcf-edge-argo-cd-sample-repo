@@ -18,7 +18,7 @@ spec:
       containers:
       - name: mapdeployment
       #toggle image between combat01 and fire01 when demonstrating to show initial and end state
-        image: indhruvtyagi/demo-map:fire01
+        image: indhruvtyagi/demo-map:combat01
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
