@@ -1,29 +1,29 @@
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: register-vks-01
-  namespace: argocd
-  annotations:
-    argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
-    argocd.argoproj.io/sync-wave: "0"
-spec:
-  template:
-    spec:
-      containers:
-      - name: register
-        image: "quay.io/argoproj/argocd@sha256:a0ebfa7d419a1c78babc80fc77de093751d8a5fabffcaf3f7e81a4d55a23cc0d"  # Runs in-cluster without pulling an image
-        command: ["/bin/sh", "-c"]
-        args:
-          - |
-            echo "Waiting for kubeconfig to be available..."
-            while ! kubectl get secret vks-kubeconfig -n argocd -o jsonpath='{.data.value}' | base64 -d > /tmp/vks-kubeconfig; do
-              sleep 5
-            done
+# apiVersion: batch/v1
+# kind: Job
+# metadata:
+#   name: register-vks-01
+#   namespace: argocd
+#   annotations:
+#     argocd.argoproj.io/hook: PostSync
+#     argocd.argoproj.io/hook-delete-policy: HookSucceeded
+#     argocd.argoproj.io/sync-wave: "0"
+# spec:
+#   template:
+#     spec:
+#       containers:
+#       - name: register
+#         image: "quay.io/argoproj/argocd@sha256:a0ebfa7d419a1c78babc80fc77de093751d8a5fabffcaf3f7e81a4d55a23cc0d"  # Runs in-cluster without pulling an image
+#         command: ["/bin/sh", "-c"]
+#         args:
+#           - |
+#             echo "Waiting for kubeconfig to be available..."
+#             while ! kubectl get secret vks-kubeconfig -n argocd -o jsonpath='{.data.value}' | base64 -d > /tmp/vks-kubeconfig; do
+#               sleep 5
+#             done
 
-            echo "Extracting correct context..."
-            CONTEXT=$(kubectl config --kubeconfig=/tmp/vks-kubeconfig view -o jsonpath='{.contexts[0].name}')
+#             echo "Extracting correct context..."
+#             CONTEXT=$(kubectl config --kubeconfig=/tmp/vks-kubeconfig view -o jsonpath='{.contexts[0].name}')
 
-            echo "Registering vks in ArgoCD with context: $CONTEXT"
-            argocd cluster add $CONTEXT --kubeconfig /tmp/vks-kubeconfig
-      restartPolicy: Never
+#             echo "Registering vks in ArgoCD with context: $CONTEXT"
+#             argocd cluster add $CONTEXT --kubeconfig /tmp/vks-kubeconfig
+#       restartPolicy: Never
