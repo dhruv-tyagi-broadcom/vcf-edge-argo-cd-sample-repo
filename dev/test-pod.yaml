@@ -6,9 +6,9 @@ metadata:
 spec:
   containers:
   - name: register
-    image: bitnami/kubectl:latest   # Includes kubectl pre-installed
+    image: ubuntu:22.04
     command: ["/bin/sh"]
-    args: ["-c", "while true; do sleep 3600; done"]
+    args: ["-c", "apt update && apt install -y curl && while true; do sleep 3600; done"]
     stdin: true
     tty: true
   restartPolicy: Never
