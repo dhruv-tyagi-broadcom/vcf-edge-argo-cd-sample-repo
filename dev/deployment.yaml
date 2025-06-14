@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mapdeployment
+  namespace: argocd
+  labels:
+    app: mapdeployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mapdeployment
+  template:
+    metadata:
+      labels:
+        app: mapdeployment
+    spec:
+      containers:
+      - name: mapdeployment
+      #toggle image between combat01 and fire01 when demonstrating to show initial and end state
+        image: indhruvtyagi/demo-map:combat01
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+      imagePullSecrets:
+      - name: dockerhub-creds
