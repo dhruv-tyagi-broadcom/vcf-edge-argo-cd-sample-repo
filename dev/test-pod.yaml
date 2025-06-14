@@ -7,6 +7,8 @@ spec:
   containers:
   - name: register
     image: "quay.io/argoproj/argocd@sha256:a0ebfa7d419a1c78babc80fc77de093751d8a5fabffcaf3f7e81a4d55a23cc0d"
+    command: ["/bin/sh"]
+    args: ["-c", "while true; do sleep 3600; done"]
     stdin: true
     tty: true
   restartPolicy: Never
