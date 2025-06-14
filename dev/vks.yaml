@@ -15,7 +15,7 @@ spec:
         - 10.96.0.0/12
     serviceDomain: cluster.local
   topology:
-    class: builtin-generic-v3.3.0
+    class: tanzukubernetescluster
     version: v1.32.0---vmware.6-fips-vkr.2
     variables:
       - name: vmClass
