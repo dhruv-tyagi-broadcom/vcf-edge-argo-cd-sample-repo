@@ -17,13 +17,13 @@ spec:
         args:
           - |
             echo "Waiting for kubeconfig to be available..."
-            while ! kubectl get secret vks-01-kubeconfig -n argocd -o jsonpath='{.data.value}' | base64 -d > /tmp/vks-01-kubeconfig; do
+            while ! kubectl get secret vks-kubeconfig -n argocd -o jsonpath='{.data.value}' | base64 -d > /tmp/vks-kubeconfig; do
               sleep 5
             done
 
             echo "Extracting correct context..."
-            CONTEXT=$(kubectl config --kubeconfig=/tmp/vks-01-kubeconfig view -o jsonpath='{.contexts[0].name}')
+            CONTEXT=$(kubectl config --kubeconfig=/tmp/vks-kubeconfig view -o jsonpath='{.contexts[0].name}')
 
-            echo "Registering vks-01 in ArgoCD with context: $CONTEXT"
-            argocd cluster add $CONTEXT --kubeconfig /tmp/vks-01-kubeconfig
+            echo "Registering vks in ArgoCD with context: $CONTEXT"
+            argocd cluster add $CONTEXT --kubeconfig /tmp/vks-kubeconfig
       restartPolicy: Never
