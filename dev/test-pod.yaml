@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: register-vks-manual
+  namespace: argocd
+spec:
+  containers:
+  - name: register
+    image: "quay.io/argoproj/argocd@sha256:a0ebfa7d419a1c78babc80fc77de093751d8a5fabffcaf3f7e81a4d55a23cc0d"
+    stdin: true
+    tty: true
+  restartPolicy: Never
