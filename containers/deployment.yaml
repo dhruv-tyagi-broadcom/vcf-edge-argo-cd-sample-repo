@@ -20,6 +20,14 @@ spec:
       #toggle image between combat01 and fire01 when demonstrating to show initial and end state
         image: indhruvtyagi/demo-map:fire01
         imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop:
+              - ALL
+          seccompProfile:
+            type: RuntimeDefault
         ports:
         - containerPort: 8000
       imagePullSecrets:
