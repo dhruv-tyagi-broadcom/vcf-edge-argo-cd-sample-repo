@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: desired-state-vcf-edge-app
+  name: desired-state-vcf-edge-app-child
   namespace: argocd
 spec:
   project: default
@@ -9,10 +9,10 @@ spec:
   source:
     repoURL: https://github.com/dhruvtyagi2015/Desired-State-VCF-Edge-Demo.git
     targetRevision: HEAD
-    path: child-apps
+    path: dev
   destination: 
-    server: https://kubernetes.default.svc
-    namespace: argocd
+    name: 'vks-admin@vks'
+    namespace: default
 
   syncPolicy:
     automated:
