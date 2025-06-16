@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: container-desired-state-vcf-edge-app
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/dhruvtyagi2015/Desired-State-VCF-Edge-Demo.git
+    targetRevision: HEAD
+    path: containers
+  destination: 
+    name: 'vks-admin@vks'
+    namespace: default
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
