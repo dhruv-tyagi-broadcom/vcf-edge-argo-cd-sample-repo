@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mapdeployment
-  namespace: argocd
+  # namespace: argocd
   labels:
     app: mapdeployment
 spec:
