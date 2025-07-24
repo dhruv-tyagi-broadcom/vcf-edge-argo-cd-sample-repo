@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: container-app
+  name: parent-app
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: 'https://github.com/dhruvtyagi2015/Desired-State-VCF-Edge-Demo.git'
     targetRevision: main
-    path: apps/container-app
+    path: child-apps    
     directory:
-      recurse: true
+      recurse: true   
   destination:
-    name: 'vks-01-admin@vks-01'
-    namespace: default
+    server: 'https://10.1.8.207:443'
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
