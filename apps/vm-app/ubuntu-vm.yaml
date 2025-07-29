@@ -8,7 +8,7 @@ metadata:
     topology.kubernetes.io/zone: edge-zone-1
 spec:
   className: best-effort-small
-  imageName: vmi-873d54816b90f610f
+  imageName: vmi-d093a76587d25f80b
   storageClass: edge-site-1-storage-policy
   powerState: PoweredOn
   volumes:
