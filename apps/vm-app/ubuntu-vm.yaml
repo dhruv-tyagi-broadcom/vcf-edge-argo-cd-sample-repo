@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
   labels:
     vm-selector: vcf-edge-sample-ubuntu-vm
-    topology.kubernetes.io/zone: domain-c28
+    topology.kubernetes.io/zone: edge-zone-1
 spec:
   className: best-effort-small
   imageName: vmi-873d54816b90f610f

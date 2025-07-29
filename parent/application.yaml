@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/dhruvtyagi2015/Desired-State-VCF-Edge-Demo.git'
+    repoURL: 'https://github.com/dhruv-tyagi-broadcom/vcf-edge-argo-cd-sample-repo.git'
     targetRevision: main
     path: child-apps    
     directory:
