@@ -12,7 +12,7 @@ spec:
     directory:
       recurse: true
   destination:
-    name: 'vks-demo-dev-r734w'
+    name: 'vks-01'
     namespace: default
   syncPolicy:
     automated:
