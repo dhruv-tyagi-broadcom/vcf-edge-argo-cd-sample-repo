@@ -1,0 +1,17 @@
+apiVersion: argocd-service.vsphere.vmware.com/v1alpha1
+kind: EntityManagementPolicy
+metadata:
+  name: attach-test
+  namespace: dev-r734w
+spec:
+  enabled: true
+  rules:
+  - apiGroup: cluster.x-k8s.io
+    kind: Cluster
+    namespaces:
+      nameSelector: ["dev-r734w"]
+    labelSelector:
+      matchLabels: { env: test }
+  config:
+    secretLabels: { env: test }
+    argoCDProject: default
