@@ -12,7 +12,7 @@ spec:
     directory:
       recurse: true   
   destination:
-    server: 'https://10.1.8.135:443'
+    server: dev-r734w
     namespace: dev-r734w
   syncPolicy:
     automated:
