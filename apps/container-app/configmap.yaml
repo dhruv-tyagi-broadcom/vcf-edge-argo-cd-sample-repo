@@ -17,7 +17,7 @@ data:
     </style></head>
     <body><div class="card">
       <h1>ENV: TEST</h1>
-      <p>Deployed by Argo CD on VKS 3.8</p>
+      <p>Deployed by Argo CD on VKS</p>
       <p class="pod">Served by pod: <!--#echo var="hostname" --></p>
     </div></body>
     </html>
