@@ -3,6 +3,7 @@ kind: Cluster
 metadata:
   name: vks-01
   namespace: dev-r734w
+  labels: { env: test }
 spec:
   clusterNetwork:
     pods:
