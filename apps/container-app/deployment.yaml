@@ -16,24 +16,27 @@ spec:
     spec:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 10001
         seccompProfile:
           type: RuntimeDefault
       containers:
-        - name: podinfo
-          image: ghcr.io/stefanprodan/podinfo:6.7.1
+        - name: web
+          image: nginxinc/nginx-unprivileged:1.27-alpine
           ports:
-            - containerPort: 9898
-          env:
-            - name: PODINFO_UI_MESSAGE
-              value: "Deployed by Argo CD on VKS 3.8 – test"
-            - name: PODINFO_UI_COLOR
-              value: "#1d6fa5"
-          readinessProbe:
-            httpGet: { path: /readyz, port: 9898 }
-          livenessProbe:
-            httpGet: { path: /healthz, port: 9898 }
+            - containerPort: 8080
+          volumeMounts:
+            - name: page
+              mountPath: /usr/share/nginx/html
+            - name: page
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
               drop: ["ALL"]
+      volumes:
+        - name: page
+          configMap:
+            name: demo-page
+            items:
+              - { key: index.html, path: index.html }
+              - { key: default.conf, path: default.conf }
