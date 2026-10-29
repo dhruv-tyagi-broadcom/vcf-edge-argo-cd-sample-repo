@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vks
+  namespace: dev-r734w
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/dhruv-tyagi-broadcom/vcf-edge-argo-cd-sample-repo.git'
+    targetRevision: main
+    path: apps/vks
+    directory:
+      recurse: true
+  destination:
+    server: 'https://auto-a.site-a.vcf.lab/proxy/k8s/namespaces/urn:vcloud:namespace:1a39409a-6011-431d-844d-b55d4306663e'
+    namespace: dev-r734w
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
