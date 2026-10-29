@@ -12,8 +12,8 @@ spec:
     directory:
       recurse: true
   destination:
-    server: 'https://10.3.8.201:443'
-    namespace: argocd
+    server: 'https://10.1.8.135:443'
+    namespace: dev-r734w
   syncPolicy:
     automated:
       prune: true
