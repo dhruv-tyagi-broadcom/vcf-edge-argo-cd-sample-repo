@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-page
+data:
+  index.html: |
+    <!doctype html>
+    <html>
+    <head><meta charset="utf-8"><title>VKS GitOps Demo</title>
+    <style>
+      body { margin:0; height:100vh; display:flex; align-items:center; justify-content:center;
+             font-family:Arial, sans-serif; color:#fff; background:#1d6fa5; }
+      .card { text-align:center; }
+      h1 { font-size:4em; margin:0; }
+      p  { font-size:1.6em; margin:.4em 0; }
+      .pod { font-family:monospace; opacity:.8; }
+    </style></head>
+    <body><div class="card">
+      <h1>ENV: TEST</h1>
+      <p>Deployed by Argo CD on VKS 3.8</p>
+      <p class="pod">Served by pod: <!--#echo var="hostname" --></p>
+    </div></body>
+    </html>
+  default.conf: |
+    server {
+      listen 8080;
+      location / {
+        root /usr/share/nginx/html;
+        index index.html;
+        ssi on;
+      }
+    }
