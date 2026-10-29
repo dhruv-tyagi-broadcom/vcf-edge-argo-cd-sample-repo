@@ -1,15 +1,16 @@
-apiVersion: vmoperator.vmware.com/v1alpha3
+apiVersion: vmoperator.vmware.com/v1alpha5
 kind: VirtualMachine
 metadata:
   name: vcf-edge-sample-ubuntu-vm
   namespace: dev-r734w
   labels:
     vm-selector: vcf-edge-sample-ubuntu-vm
-    topology.kubernetes.io/zone: edge-zone-1
+    topology.kubernetes.io/zone: z-wld-a
 spec:
-  className: best-effort-small
-  imageName: vmi-784fa5e086133dbcd
-  storageClass: edge-site-1-storage-policy
+  className: best-effort-medium
+  # Friendly image name: Ubuntu 22.04 LTS Minimal - Jammy - 22.04.20260519
+  imageName: vmi-b59a338f867943c6d
+  storageClass: vsan-default-storage-policy
   powerState: PoweredOn
   volumes:
     - name: vcf-edge-sample-ubuntu-vm-pvc-0
@@ -23,10 +24,14 @@ metadata:
   namespace: dev-r734w
   labels:
     vm-selector: vcf-edge-sample-ubuntu-vm
+  annotations:
+    csi.vsphere.volume-requested-topology: '[{"topology.kubernetes.io/zone":"z-wld-a"}]'
 spec:
   accessModes:
     - ReadWriteOnce
+  volumeMode: Block
   resources:
     requests:
       storage: 20Gi
   storageClassName: vsan-default-storage-policy
+
