@@ -6,12 +6,12 @@ metadata:
 spec:
   enabled: true
   rules:
-  - apiGroup: cluster.x-k8s.io
-    kind: Cluster
-    namespaces:
-      nameSelector: ["dev-r734w"]
-    labelSelector:
-      matchLabels: { env: test }
+    - apiGroup: cluster.x-k8s.io
+      kind: Cluster
+      namespaces:
+        nameSelector: ["dev-r734w"]
+      labelSelector:
+        matchLabels: { env: test }
   config:
     secretLabels: { env: test }
     argoCDProject: default
