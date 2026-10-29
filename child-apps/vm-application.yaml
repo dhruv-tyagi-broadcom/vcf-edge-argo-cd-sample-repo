@@ -12,7 +12,7 @@ spec:
     directory:
       recurse: true
   destination:
-    server: 'https://10.1.8.135:443'
+    server: 'https://auto-a.site-a.vcf.lab/proxy/k8s/namespaces/urn:vcloud:namespace:1a39409a-6011-431d-844d-b55d4306663e'
     namespace: dev-r734w
   syncPolicy:
     automated:
