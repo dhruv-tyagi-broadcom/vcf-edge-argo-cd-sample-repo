@@ -18,3 +18,10 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - RespectIgnoreDifferences=true
+  ignoreDifferences:
+    - group: vmoperator.vmware.com
+      kind: VirtualMachine
+      jsonPointers:
+        - /spec/volumes
